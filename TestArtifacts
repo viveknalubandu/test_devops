@@ -1,10 +1,10 @@
-def artifactname = "sp-boot-app.jar"
-def repoName = "sp-boot-app-repo"
-def pipelineName = "devops_vk_pipeline"
+def artifactname = "QuebecRp2-artifact.jar"
+def repoName = "QuebecRp2-repo"
+def pipelineName = "balu_testartifacts"
 def semanticVersion = "${env.BUILD_NUMBER}.0.0"
-def packageName = "spboot-package_${env.BUILD_NUMBER}"
+def packageName = "QuebecRp2_${env.BUILD_NUMBER}"
 def version = "${env.BUILD_NUMBER}.0"
-def pkgName = "sp-boot-package"
+def pkgName = "QuebecRp2-package"
 
 pipeline{
 
