@@ -7,7 +7,9 @@ def version = "${env.BUILD_NUMBER}.0"
 def pkgName = "sp-boot-package"
 
 pipeline{
+
 	agent any
+	
 	tools{
 		maven'Maven'
 	}  
