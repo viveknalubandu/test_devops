@@ -1,0 +1,38 @@
+def artifactname = "sp-boot-app.jar"
+def repoName = "sp-boot-app-repo"
+def pipelineName = "devops_vk_pipeline"
+def semanticVersion = "${env.BUILD_NUMBER}.0.0"
+def packageName = "spboot-package_${env.BUILD_NUMBER}"
+def version = "${env.BUILD_NUMBER}.0"
+def pkgName = "sp-boot-package"
+
+pipeline{
+	agentanytools{
+		maven'Maven'
+	}  
+	
+	stages {
+
+     stage('PublishArtifacts') { 
+	            steps {
+	               snDevOpsStep()
+	               
+	               echo 'Publishing Artifacts....'
+                	sleep 3
+					snDevOpsArtifact(artifactsPayload:"""{"artifacts": [{"name": "${artifactname}-${env.BUILD_NUMBER}","version":"${version}","semanticVersion": "${semanticVersion}","repositoryName": "${repoName}"}],"stageName": "PublishArtifacts"}""")            
+
+	            }
+	            
+	        }
+
+		stage('PublishPackage') {
+         steps {
+            snDevOpsStep()
+            echo 'Publishing Package....'
+          	// format-4
+         	snDevOpsPackage(name: "${pkgName}-${env.BUILD_NUMBER}", artifactsPayload: """{"artifacts":[{"name": "${artifactname}", "version": "1.${env.BUILD_NUMBER}", "repositoryName": "${repoName}"}], "branchName":"master"}""")
+         }
+ 	}
+ }
+ 
+}
